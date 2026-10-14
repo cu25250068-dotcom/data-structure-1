@@ -1,0 +1,49 @@
+#1
+def find(parent, vertex):
+    if parent[vertex] != vertex:
+        parent[vertex] = find(parent, parent[vertex])
+    return parent[vertex]
+
+
+def union(parent, a, b):
+    root_a = find(parent, a)
+    root_b = find(parent, b)
+    parent[root_a] = root_b
+
+
+vertices = int(input("Enter number of vertices: "))
+edges_count = int(input("Enter number of edges: "))
+
+edges = []
+
+print("Enter source, destination and weight:")
+
+for i in range(edges_count):
+    u, v, weight = map(int, input().split())
+    edges.append((weight, u, v))
+
+edges.sort()
+
+parent = list(range(vertices))
+total_cost = 0
+count = 0
+
+print("\nEdges in MST:")
+
+for weight, u, v in edges:
+    root_u = find(parent, u)
+    root_v = find(parent, v)
+
+    if root_u != root_v:
+        print(u, "-", v, ":", weight)
+        total_cost += weight
+        union(parent, root_u, root_v)
+        count += 1
+
+        if count == vertices - 1:
+            break
+
+if count == vertices - 1:
+    print("\nMinimum Cost =", total_cost)
+else:
+    print("\nMST is not possible because graph is disconnected.")
