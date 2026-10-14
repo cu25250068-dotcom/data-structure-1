@@ -1,0 +1,49 @@
+#1
+class Node:
+    def __init__(self, char, freq):
+        self.char = char
+        self.freq = freq
+        self.left = None
+        self.right = None
+
+def generate_codes(root, code="", codes={}):
+    if root is None:
+        return
+
+    if root.char != "":
+        codes[root.char] = code
+
+    generate_codes(root.left, code + "0", codes)
+    generate_codes(root.right, code + "1", codes)
+n = int(input("Enter number of characters: "))
+
+nodes = []
+
+for i in range(n):
+    char = input("Enter character: ")
+    freq = int(input("Enter frequency of " + char + ": "))
+    nodes.append(Node(char, freq))
+while len(nodes) > 1:
+
+    nodes.sort(key=lambda x: x.freq)
+
+    left = nodes.pop(0)
+    right = nodes.pop(0)
+
+    
+    new_node = Node("", left.freq + right.freq)
+
+    new_node.left = left
+    new_node.right = right
+
+    nodes.append(new_node)
+
+
+codes = {}
+generate_codes(nodes[0], "", codes)
+
+
+print("\nHuffman Codes:")
+
+for char, code in codes.items():
+    print(char, "=", code)
