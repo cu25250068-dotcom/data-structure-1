@@ -1,0 +1,96 @@
+#1
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None
+    def insert_head(self, data):
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
+    def insert_tail(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+            return
+        temp = self.head
+        while temp.next is not None:
+            temp = temp.next
+        temp.next = new_node
+    def insert_at_index(self, data, index):
+        if index == 0:
+            self.insert_head(data)
+            return
+        temp = self.head
+        for i in range(index - 1):
+            if temp is None:
+                print("Invalid index")
+                return
+            temp = temp.next
+        if temp is None:
+            print("Invalid index")
+            return
+        new_node = Node(data)
+        new_node.next = temp.next
+        temp.next = new_node
+    def delete_by_value(self, target):
+        if self.head is None:
+            print("List is empty")
+            return
+        if self.head.data == target:
+            self.head = self.head.next
+            print("Node deleted successfully")
+            return
+        temp = self.head
+
+        while temp.next is not None:
+            if temp.next.data == target:
+                temp.next = temp.next.next
+                print("Node deleted successfully")
+                return
+            temp = temp.next
+        print("Target value not found")
+    def display(self):
+        if self.head is None:
+            print("List is empty")
+            return
+        temp = self.head
+        while temp is not None:
+            print(temp.data, end=" -> ")
+            temp = temp.next
+        print("None")
+sll = SinglyLinkedList()
+while True:
+
+    print("\n----- Singly Linked List -----")
+    print("1. Insert at Head")
+    print("2. Insert at Tail")
+    print("3. Insert at Specified Index")
+    print("4. Delete by Target Value")
+    print("5. Display List")
+    print("6. Exit")
+    choice = int(input("Enter your choice: "))
+    if choice == 1:
+        value = int(input("Enter data: "))
+        sll.insert_head(value)
+    elif choice == 2:
+        value = int(input("Enter data: "))
+        sll.insert_tail(value)
+    elif choice == 3:
+        value = int(input("Enter data: "))
+        index = int(input("Enter index: "))
+        sll.insert_at_index(value, index)
+    elif choice == 4:
+        target = int(input("Enter target value to delete: "))
+        sll.delete_by_value(target)
+    elif choice == 5:
+        print("Linked List:")
+        sll.display()
+
+    elif choice == 6:
+        print("Program ended.")
+        break
+    else:
+        print("Invalid choice")
