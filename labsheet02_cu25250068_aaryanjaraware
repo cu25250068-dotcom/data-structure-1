@@ -1,0 +1,22 @@
+#1
+arr = list(map(int, input("Enter array elements: ").split()))
+print("Original Array:", arr)
+index = int(input("Enter index to insert: "))
+value = int(input("Enter value to insert: "))
+arr.append(0)
+for i in range(len(arr) - 1, index, -1):
+    arr[i] = arr[i - 1]
+arr[index] = value
+print("After Insertion:", arr)
+index = int(input("Enter index to delete: "))
+for i in range(index, len(arr) - 1):
+    arr[i] = arr[i + 1]
+arr.pop()
+print("After Deletion:", arr)
+value = int(input("Enter value to search: "))
+found = -1
+for i in range(len(arr)):
+    if arr[i] == value:
+        found = i
+        break
+print("First Index Found:", found)
