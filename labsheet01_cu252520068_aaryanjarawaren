@@ -1,0 +1,82 @@
+#1
+import time
+def linear_search(arr, target):
+    comparisons = 0
+
+    for i in range(len(arr)):
+        comparisons += 1
+
+        if arr[i] == target:
+            return i, comparisons
+
+    return -1, comparisons
+sizes = [10000, 50000, 100000]
+print("\nLinear Search Time Complexity Analysis")
+print("=" * 50)
+for n in sizes:
+    arr = list(range(n))
+    target = int(input(f"\nEnter target for array size {n}: "))
+    start_time = time.perf_counter_ns()
+    result, comparisons = linear_search(arr, target)
+    end_time = time.perf_counter_ns()
+    execution_time = (end_time - start_time) / 1000
+    print("\nArray Size      :", n)
+    print("Target          :", target)
+    print("Index Found     :", result)
+    print("Comparisons     :", comparisons)
+    print("Execution Time  :", f"{execution_time:.3f}", "microseconds")
+    print("Time Complexity : O(n)")
+    print("-" * 50)
+#2# CODE-2: Binary Search
+import time
+
+def binary_search(arr, target):
+    low = 0
+    high = len(arr) - 1
+    comparisons = 0
+
+    while low <= high:
+        comparisons += 1
+
+        mid = (low + high) // 2
+
+        if arr[mid] == target:
+            return mid, comparisons
+
+        elif arr[mid] < target:
+            low = mid + 1
+
+        else:
+            high = mid - 1
+
+    return -1, comparisons
+
+
+sizes = [10000, 50000, 100000]
+
+print("\nBinary Search Time Complexity Analysis")
+print("=" * 50)
+
+for n in sizes:
+
+       
+    arr = list(range(n))
+
+    
+    target = int(input(f"\nEnter target for array size {n}: "))
+
+    start_time = time.perf_counter_ns()
+
+    result, comparisons = binary_search(arr, target)
+
+    end_time = time.perf_counter_ns()
+
+    execution_time = (end_time - start_time) / 1000
+
+    print("\nArray Size      :", n)
+    print("Target          :", target)
+    print("Index Found     :", result)
+    print("Comparisons     :", comparisons)
+    print("Execution Time  :", f"{execution_time:.3f}", "microseconds")
+    print("Time Complexity : O(log n)")
+    print("-" * 50)
